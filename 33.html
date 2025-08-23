@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>可以成为我的恋人吗？</title>
+    <style>
+        /* 页面整体样式：垂直+水平居中，移除图片相关样式 */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fadadd;
+            font-family: "Microsoft Yahei", sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* 标题样式：强化居中，调整字号和颜色更醒目 */
+        h1 {
+            font-size: 28px;
+            color: #663333;
+            margin-bottom: 40px;
+            text-align: center; /* 确保标题绝对居中 */
+        }
+
+        /* 按钮容器：保持并排布局 */
+        .button-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* 按钮通用样式 */
+        button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* “可以”按钮样式 */
+        #yes-btn {
+            background-color: #f08080;
+        }
+        #yes-btn:hover {
+            background-color: #ff6b6b;
+            transform: scale(1.05);
+        }
+
+        /* “不要”按钮样式（保留跑开效果） */
+        #no-btn {
+            background-color: #6699cc;
+        }
+        #no-btn:hover {
+            background-color: #4a7cb5;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- 移除图片容器，直接显示标题 -->
+    <h1 id="confession-title">可以成为我的恋人吗？</h1>
+
+    <!-- 按钮组 -->
+    <div class="button-group" id="btn-group">
+        <button id="yes-btn">可以</button>
+        <button id="no-btn">不要</button>
+    </div>
+
+    <script>
+        // 获取核心元素：标题、按钮组、两个按钮
+        const title = document.getElementById('confession-title');
+        const btnGroup = document.getElementById('btn-group');
+        const yesBtn = document.getElementById('yes-btn');
+        const noBtn = document.getElementById('no-btn');
+
+        // 点击“可以”：标题变“！！！爱你！！” + 按钮组消失
+        yesBtn.onclick = function() {
+            alert('太好了！从此我们就是恋人啦 ❤️');
+            title.innerText = '！！！爱你！！'; // 标题修改
+            btnGroup.style.display = 'none'; // 按钮组隐藏（两个按钮一起消失）
+        };
+
+        // 点击“不要”：保留按钮跑开效果
+        noBtn.onclick = function() {
+            const newX = Math.random() * (window.innerWidth - 100);
+            const newY = Math.random() * (window.innerHeight - 50);
+            this.style.position = 'fixed';
+            this.style.left = newX + 'px';
+            this.style.top = newY + 'px';
+        };
+    </script>
+</body>
+</html>
