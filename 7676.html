@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>表白页面</title>
+  <style>
+    body {
+      background: #fea3aa;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
+    }
+    .container {
+      width: 90vw;
+      max-width: 400px;
+      background: rgba(255,255,255,0.6);
+      border-radius: 24px;
+      padding: 40px 10px 30px 10px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(254,163,170,0.1);
+    }
+    h1 {
+      color: #d72660;
+      font-size: 2.1rem;
+      font-weight: 700;
+      margin-bottom: 38px;
+      letter-spacing: 1px;
+      transition: all 0.2s;
+    }
+    .btn-group {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      margin-top: 10px;
+      position: relative;
+      height: 50px;
+      width: 100%;
+    }
+    button {
+      appearance: none;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.05rem;
+      padding: 14px 32px;
+      margin: 0;
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 2px 10px #e7c8cb88;
+      transition: all 0.25s;
+      cursor: pointer;
+      z-index: 2;
+      position: relative;
+    }
+    #btn-no {
+      background: #c36473;
+      position: static;
+      transition: all 0.18s ease;
+    }
+    #btn-yes {
+      background: #ff758c;
+    }
+    .love-text {
+      background: #d72660;
+      padding: 14px 32px;
+      border-radius: 30px;
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 600;
+      box-shadow: 0 2px 10px #e7c8cb88;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="title">你愿意成为我的女朋友吗？</h1>
+    <div class="btn-group" style="position:relative; height:60px;">
+      <button id="btn-yes">可以</button>
+      <button id="btn-no">不可以</button>
+    </div>
+  </div>
+
+  <script>
+    const btnNo = document.getElementById('btn-no');
+    const btnYes = document.getElementById('btn-yes');
+    const title = document.getElementById('title');
+    const btnGroup = document.querySelector('.btn-group');
+
+    function moveNoButton() {
+      const groupRect = btnGroup.getBoundingClientRect();
+      const btnRect = btnNo.getBoundingClientRect();
+      const padding = 5;
+      // 大幅扩大移动范围（跨父容器上下偏移）
+      const maxLeft = groupRect.width - btnRect.width - padding + 50;
+      const maxTop = groupRect.height - btnRect.height + 80;
+      const minTop = -60;
+      // 超大位移差值，动作幅度拉满
+      let newLeft, newTop;
+      do {
+        newLeft = Math.floor(Math.random() * (maxLeft + 1) - 25);
+        newTop = Math.floor(Math.random() * (maxTop - minTop + 1) + minTop);
+      } while (Math.abs(newLeft - btnNo.offsetLeft) < 80 && Math.abs(newTop - btnNo.offsetTop) < 50);
+      btnNo.style.position = 'absolute';
+      btnNo.style.left = `${newLeft}px`;
+      btnNo.style.top = `${newTop}px`;
+    }
+
+    btnNo.addEventListener('click', (e) => {
+      moveNoButton();
+    });
+
+    btnNo.addEventListener('touchstart', (e) => {
+      moveNoButton();
+      e.preventDefault();
+    });
+
+    btnYes.addEventListener('click', () => {
+      title.textContent = '我们成为恋人啦！';
+      btnYes.remove();
+      // 替换为红底"爱你 爱你"
+      const loveEl = document.createElement('div');
+      loveEl.className = 'love-text';
+      loveEl.textContent = '爱你 爱你';
+      btnGroup.appendChild(loveEl);
+      btnNo.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
